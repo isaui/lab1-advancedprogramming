@@ -26,4 +26,23 @@ public class ProductServiceImpl implements ProductService{
         return allProduct;
     }
     
+    @Override
+    public Product findById(String productId){
+        Product product = productRepository.findById(productId);
+        return product;
+    }
+
+    @Override
+    public void update(String productId, Product product) {
+        // TODO Auto-generated method stub
+        productRepository.update(productId, product);
+    }
+
+    @Override
+    public void deleteProductById(String productId) {
+        // TODO Auto-generated method stub
+        productRepository.delete(productId);
+    }
+    
+    
 }
