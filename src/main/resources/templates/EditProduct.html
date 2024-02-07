@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <title>Edit Product</title>
+</head>
+<body class="bg-gray-100">
+    <div class="container mx-auto mt-8">
+        <h1 class="text-3xl font-bold mb-4">Edit Product</h1>
+
+        <form th:action="@{/product/edit}" method="post" th:object="${product}" class="max-w-md bg-white p-6 rounded-md shadow-md">
+            <input type="hidden" th:field="*{productId}" />
+            <div class="mb-4">
+                <label for="productName" class="block text-sm font-medium text-gray-600">Product Name</label>
+                <input type="text" id="productName" th:field="*{productName}" name="productName" th:value="${product.productName}" class="mt-1 p-2 w-full border rounded-md">
+            </div>
+
+            <div class="mb-4">
+                
+                <label for="productQuantity" class="block text-sm font-medium text-gray-600">Product Quantity</label>
+                <input th:field="*{productQuantity}" type="number" id="productQuantity" name="productQuantity" th:value="${product.productQuantity}" class="mt-1 p-2 w-full border rounded-md">
+            </div>
+
+            <div class="flex justify-end">
+                <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded-md">Save Changes</button>
+            </div>
+        </form>
+    </div>
+</body>
+</html>
