@@ -2,6 +2,7 @@ package id.ac.ui.cs.advprog.eshop.repository;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -94,6 +95,40 @@ public class ProductRepositoryTest {
         assertEquals(1, getProductObjectCount(productRepository.findAll()));
         productRepository.delete("non-existent-id");
         assertEquals(1, getProductObjectCount(productRepository.findAll()));
+    }
+
+
+    @Test
+    public void testEditPositive(){
+        Product initialProduct = new Product();
+        initialProduct.setProductId("to-update-1");
+        initialProduct.setProductName("to-update-product-name");
+        initialProduct.setProductQuantity(10);
+        productRepository.create(initialProduct);
+
+        Product updatedProduct = new Product();
+        updatedProduct.setProductId(initialProduct.getProductId());
+        updatedProduct.setProductName("to-update-product-name-update");
+        updatedProduct.setProductQuantity(12);
+        productRepository.update(updatedProduct.getProductId(), updatedProduct);
+        assertEquals(updatedProduct.getProductName(), productRepository.findById(updatedProduct.getProductId()).getProductName());
+        assertEquals(updatedProduct.getProductQuantity(),productRepository.findById(updatedProduct.getProductId()).getProductQuantity());
+    }
+
+    @Test
+    public void testEditNegative(){
+        Product initialProduct = new Product();
+        initialProduct.setProductId("to-update-1");
+        initialProduct.setProductName("to-update-product-name");
+        initialProduct.setProductQuantity(10);
+        productRepository.create(initialProduct);
+        Product updatedProduct = new Product();
+        updatedProduct.setProductId(initialProduct.getProductId());
+        updatedProduct.setProductName("to-update-product-name-update");
+        updatedProduct.setProductQuantity(12);
+        productRepository.update("non-existent-id", updatedProduct);
+        assertNotEquals(updatedProduct.getProductName(), productRepository.findById(updatedProduct.getProductId()).getProductName());
+        assertNotEquals(updatedProduct.getProductQuantity(),productRepository.findById(updatedProduct.getProductId()).getProductQuantity());
     }
     
     private int getProductObjectCount(Iterator<Product> iterator){
