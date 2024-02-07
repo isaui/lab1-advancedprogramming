@@ -10,7 +10,9 @@ public class ProductRepository {
     static int id = 0;
     private List<Product> productData = new ArrayList<>();
     public Product create(Product product){
-        product.setProductId(String.valueOf(id++));
+        if(product.getProductId() == null){
+            product.setProductId(String.valueOf(id++));
+        }
         productData.add(product);
         return product;
     }
