@@ -13,7 +13,6 @@ public class ProductServiceImpl implements ProductService{
     private ProductRepository productRepository;
     @Override
     public Product create(Product product) {
-        // TODO Auto-generated method stub
         productRepository.create(product);
         return product;
     }
@@ -34,13 +33,11 @@ public class ProductServiceImpl implements ProductService{
 
     @Override
     public void update(String productId, Product product) {
-        // TODO Auto-generated method stub
         productRepository.update(productId, product);
     }
 
     @Override
     public void deleteProductById(String productId) {
-        // TODO Auto-generated method stub
         productRepository.delete(productId);
     }
     

@@ -1,7 +1,7 @@
 Nama: Isa Citra Buana
 NPM: 2206081465
 
-
+Code Quality Issue
 
 WEEK01
 
