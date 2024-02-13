@@ -41,12 +41,8 @@ public class ProductController {
         return "editProduct";
     }
     @PostMapping("/edit")
-    public String editProductPost(
-                                  @ModelAttribute Product product, Model model) {
-        System.out.println("HEHEHEHH");
-        System.out.println(product.getProductId());
+    public String editProductPost( @ModelAttribute Product product, Model model) {
         service.update(product.getProductId(), product);
-        
         return PRODUCT_LIST_URL_REDIRECT;
     }
     
