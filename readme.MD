@@ -1,6 +1,10 @@
 Nama: Isa Citra Buana
 NPM: 2206081465
 
+
+
+WEEK01
+
 Reflection 1
 
 Saya menerapkan clean code diantaranya sebagai berikut:
