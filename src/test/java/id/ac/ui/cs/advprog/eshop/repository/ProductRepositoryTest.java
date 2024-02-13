@@ -3,6 +3,7 @@ package id.ac.ui.cs.advprog.eshop.repository;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -25,6 +26,51 @@ public class ProductRepositoryTest {
     @BeforeEach
     void setup(){
 
+    }
+
+    @Test
+    void testCreate_ProductIdIsNull() {
+        // Arrange
+        Product product = new Product();
+        product.setProductName("Test Product");
+        product.setProductQuantity(100);
+
+        // Act
+        Product createdProduct = productRepository.create(product);
+
+        // Assert
+        assertNotNull(createdProduct.getProductId());
+        assertEquals(product.getProductName(), createdProduct.getProductName());
+        assertEquals(product.getProductQuantity(), createdProduct.getProductQuantity());
+    }
+
+    @Test
+    void testFindById_ProductExists() {
+        // Arrange
+        String productId = "eb558e9f-1c39-460e-8860-71af6af63bd6";
+        Product expectedProduct = new Product();
+        expectedProduct.setProductId(productId);
+        // Add the expectedProduct to productData list
+        productRepository.create(expectedProduct);
+
+        // Act
+        Product actualProduct = productRepository.findById(productId);
+
+        // Assert
+        assertNotNull(actualProduct);
+        assertEquals(expectedProduct.getProductId(), actualProduct.getProductId());
+    }
+
+    @Test
+    void testFindById_ProductDoesNotExist() {
+        // Arrange
+        String nonExistentProductId = "non-existent-product-id";
+
+        // Act
+        Product actualProduct = productRepository.findById(nonExistentProductId);
+
+        // Assert
+        assertNull(actualProduct);
     }
 
     @Test

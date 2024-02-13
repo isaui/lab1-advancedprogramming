@@ -7,7 +7,6 @@ import java.util.List;
 import java.util.UUID;
 @Repository
 public class ProductRepository {
-    static int id = 0;
     private List<Product> productData = new ArrayList<>();
     public Product create(Product product){
         if(product.getProductId() == null){
@@ -28,6 +27,7 @@ public class ProductRepository {
         }
         return null;
     }
+    
     public Product update(String id, Product updatedProduct) {
         for (int i = 0; i < productData.size(); i++) {
             Product product = productData.get(i);
