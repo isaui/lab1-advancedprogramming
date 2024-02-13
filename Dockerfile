@@ -1,24 +1,24 @@
 FROM docker.io/library/eclipse-temurin:17-jdk-alpine AS builder
 
-WORKDIR /src/eshop
+WORKDIR /src/advpro
 COPY . .
 RUN chmod +x ./gradlew
-RUN ./gradlew clean bootjar
+RUN ./gradlew clean bootJar
 
 FROM docker.io/library/eclipse-temurin:17-jre-alpine AS runner
 
-ARG USER_NAME=eshop
+ARG USERNAME=eshop
 ARG USER_UID=1000
 ARG USER_GID=${USER_UID}
 
-RUN addgroup -g ${USER_GID} ${USER_NAME} \
-&& adduser -h /opt/eshop -D -u ${USER_UID} -G ${USER_NAME} ${USER_NAME}
+RUN addgroup -g ${USER_GID} ${USERNAME} && \
+    adduser -S -u ${USER_UID} -G ${USERNAME} ${USERNAME}
 
-USER ${USER_NAME}
-WORKDIR /opt/eshop
-COPY --from=builder --chown=${USER_UID}:${USER_GID} /src/eshop/build/libs/*.jar app.jar
-
+USER ${USERNAME}
+WORKDIR /opt/advpro
 EXPOSE 8000
+COPY --from=builder --chown=${USER_UID}:${USER_GID} /src/advpro/build/libs/*.jar app.jar
 
-ENTRYPOINT ["java"]
-CMD ["-jar", "app.jar"]
+
+ENTRYPOINT [ "java" ]
+CMD [ "-jar", "app.jar" ]
