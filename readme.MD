@@ -1,9 +1,20 @@
 Nama: Isa Citra Buana
 NPM: 2206081465
 
-Code Quality Issue
+WEEK02
 
-WEEK01
+1. Code Quality Issue
+  a. Komentar yang tidak diperlukan
+  Misalnya todo yang sudah dikerjakan atau komentar-komentar lain yang sebenarnya tidak perlu dituliskan karena kodenya sudah jelas itu saya hapus.
+  b. Duplikasi Kode
+  Untuk mengurangi duplikasi kode, beberapa value yang nilainya sama dimasukkan ke suatu variabel
+  c. Logging
+  Logging dapat membocorkan informasi yang seharusnya tidak ditampilkan. Oleh karena itu ketika production, logging seperti System.out.println perlu dihapus. Oleh karena itu saya menghapus logging demikian.
+  d. Description Issue
+  Elemen table pada HTML perlu diperjelas maksudnya, seperti menambahkan aria-label. Saya menambahkan aria-label yaitu "products table" untuk table pada list product agar maksud dari table tersebut dapat dimengerti oleh pengguna
+  e. Unnecessary Local Variable
+  Terkadang ada beberapa local variable yang tidak diperlukan sehingga saya perlu menghapusnya. Misalnya variabel temporer yang hanya digunakan untuk menyimpan raw value.
+  WEEK01
 
 Reflection 1
 
