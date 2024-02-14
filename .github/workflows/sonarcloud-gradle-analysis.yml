@@ -22,6 +22,10 @@ jobs:
       - name: Set execute permission on gradlew
         run: chmod +x gradlew
 
+      - name: Build and Run Jacoco Tests
+        run: |
+          ./gradlew build test jacocoTestReport
+
       - name: Build and SonarCloud Scan
         run: |
           ./gradlew build sonar \
