@@ -65,6 +65,11 @@ public class ProductRepositoryTest {
     void testFindById_ProductDoesNotExist() {
         // Arrange
         String nonExistentProductId = "non-existent-product-id";
+        String productId = "eb558e9f-1c39-460e-8860-71af6af63bd6";
+        Product expectedProduct = new Product();
+        expectedProduct.setProductId(productId);
+        // Add the expectedProduct to productData list
+        productRepository.create(expectedProduct);
 
         // Act
         Product actualProduct = productRepository.findById(nonExistentProductId);
