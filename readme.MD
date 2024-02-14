@@ -1,6 +1,10 @@
 Advanced Programming
+
 Nama: Isa Citra Buana
+
 NPM: 2206081465
+
+Link deployment: https://advancebanget-isacitraorg.koyeb.app
 
 WEEK02 (MODULE 2)
 
