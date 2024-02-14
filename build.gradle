@@ -3,7 +3,10 @@ plugins {
 	id 'org.springframework.boot' version '3.2.2'
 	id 'io.spring.dependency-management' version '1.1.4'
 	id 'jacoco'
+	id "org.sonarqube" version "4.4.1.3373"
 }
+
+
 
 def seleniumJavaVersion = "4.14.1"
 def seleniumJupiterVersion = "5.0.1"
@@ -42,6 +45,15 @@ dependencies {
 	testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:$junitJupiterVersion"
 }
 
+sonar {
+  properties {
+    property ("sonar.projectKey", "isaui_lab1-advancedprogramming")
+    property("sonar.organization", "isaui")
+    property ("sonar.host.url", "https://sonarcloud.io")
+  }
+  
+}
+
 tasks.register('unitTest', Test) {
     description = 'Run unit tests.'
     group = 'verification'
@@ -71,3 +83,6 @@ test{
 jacocoTestReport{
 	dependsOn test
 }
+project.tasks["sonar"].dependsOn "test"
+
+apply plugin:"org.sonarqube"
