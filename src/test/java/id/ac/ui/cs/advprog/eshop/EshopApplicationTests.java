@@ -23,8 +23,8 @@ class EshopApplicationTests {
         assertNotNull(eshopApplication);
     }
 
-     @Test
-    public void testSpringApplicationRun() {
+    @Test
+    void testSpringApplicationRun() {
         EshopApplication.main(new String[] {});
 
     }
