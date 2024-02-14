@@ -26,8 +26,9 @@ WEEK02 (MODULE 2)
   Terkadang ada beberapa local variable yang tidak diperlukan sehingga saya perlu menghapusnya. Misalnya variabel temporer yang hanya digunakan untuk menyimpan raw value.
 
 2. 
+Menurut saya, implementasi workflows yang telah saya lakukan telah memenuhi definisi Continuous Integration (CI) dan Continuous Deployment (CD) dengan baik. Pertama, dengan adanya workflow untuk automation test setiap kali Continuous Integration, saya telah mengintegrasikan praktik pengujian secara otomatis ke dalam alur kerja pengembangan. Ini memastikan bahwa setiap perubahan kode diuji secara otomatis, membantu mendeteksi dan memperbaiki masalah dengan cepat. Kedua, penggunaan Sonarcloud untuk meninjau masalah kualitas kode memberikan jaminan bahwa standar kualitas dipertahankan dalam setiap iterasi pengembangan. Ini sesuai dengan prinsip Continuous Integration yang mendorong untuk mengintegrasikan perubahan kode secara teratur dan memastikan kualitasnya. Ketiga, dengan menyertakan workflow scorecard, saya memberikan transparansi terhadap performa dan keamanan code secara keseluruhan. Keempat, dengan membuat workflow auto deployment, saya sudah menerapkan Continuous Development dengan baik.
 
-  WEEK01 (MODULE 1)
+WEEK01 (MODULE 1)
 
 Reflection 1
 
