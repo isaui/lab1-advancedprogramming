@@ -11,12 +11,12 @@ public class MainControllerTest {
     private MainController mainController;
 
     @BeforeEach
-    public void setUp() {
+    void setUp() {
         MockitoAnnotations.initMocks(this);
     }
 
     @Test
-    public void testGetMain() {
+    void testGetMain() {
         String viewName = mainController.getMain();
         assertEquals("homePage", viewName);
     }
