@@ -18,7 +18,7 @@ public class MainControllerTest {
     @Test
     void testGetMain() {
         String viewName = mainController.getMain();
-        assertEquals("homePage", viewName);
+        assertEquals("HomePage", viewName);
     }
 }
 
