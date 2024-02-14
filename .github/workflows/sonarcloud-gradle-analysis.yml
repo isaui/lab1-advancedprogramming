@@ -1,0 +1,38 @@
+name: SonarCloud Plugin Analysis
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  sonarcloud:
+    name: SonarCloud Analysis
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Check out the Git repository
+        uses: actions/checkout@v4
+
+      - name: Set up Java toolchain
+        uses: actions/setup-java@v4
+        with:
+          distribution: "temurin"
+          java-version: "17"
+          cache: "gradle"
+
+      - name: Set execute permission on gradlew
+        run: chmod +x gradlew
+
+      - name: Build and Run Jacoco Tests
+        run: |
+          ./gradlew build test jacocoTestReport
+
+      - name: Build and SonarCloud Scan
+        run: |
+          ./gradlew build sonar \
+            -Dsonar.projectKey=isaui_lab1-advancedprogramming \
+            -Dsonar.organization=isaui \
+            -Dsonar.host.url=https://sonarcloud.io \
+            -Dsonar.login=${{ secrets.SONAR_TOKEN }}
+      - name: Display SonarCloud Issues URL
+        run: |
+            echo "SonarCloud Issues URL: https://sonarcloud.io/project/issues?id=isaui_lab1-advancedprogramming"

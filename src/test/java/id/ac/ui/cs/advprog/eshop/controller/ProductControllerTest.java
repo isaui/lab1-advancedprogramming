@@ -26,18 +26,18 @@ public class ProductControllerTest {
     private Model model;
 
     @BeforeEach
-    public void setUp() {
+    void setUp() {
         MockitoAnnotations.initMocks(this);
     }
 
     @Test
-    public void testCreateProductPage() {
+    void testCreateProductPage() {
         String viewName = productController.createProductPage(model);
         assertEquals("createProduct", viewName);
     }
 
     @Test
-    public void testCreateProductPost() {
+    void testCreateProductPost() {
         Product product = new Product();
         String viewName = productController.createProductPost(product, model);
         assertEquals("redirect:list", viewName);
@@ -45,7 +45,7 @@ public class ProductControllerTest {
     }
 
     @Test
-    public void testProductListPage() {
+    void testProductListPage() {
         List<Product> productList = new ArrayList<>();
         when(productService.findAll()).thenReturn(productList);
 
@@ -56,7 +56,7 @@ public class ProductControllerTest {
     }
 
     @Test
-    public void testEditProductPage() {
+    void testEditProductPage() {
         String productId = "123";
         Product product = new Product();
         when(productService.findById(productId)).thenReturn(product);
@@ -68,7 +68,7 @@ public class ProductControllerTest {
     }
 
     @Test
-    public void testEditProductPost() {
+    void testEditProductPost() {
         Product product = new Product();
         String viewName = productController.editProductPost(product, model);
         assertEquals("redirect:list", viewName);
@@ -76,7 +76,7 @@ public class ProductControllerTest {
     }
 
     @Test
-    public void testDeleteProduct() {
+    void testDeleteProduct() {
         String productId = "123";
         String viewName = productController.deleteProduct(productId);
         assertEquals("redirect:list", viewName);
