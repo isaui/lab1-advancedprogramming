@@ -16,13 +16,11 @@ public class CarServiceImpl implements CarService{
     private ICarRepository carRepository;
     @Override
     public Car create(Car car) {
-        // TODO Auto-generated method stub
         carRepository.create(car);
         return car;
     }
     @Override
     public List<Car> findAll() {
-        // TODO Auto-generated method stub
         Iterator<Car> carIterator = carRepository.findAll();
         List<Car> allCar = new ArrayList<>();
         carIterator.forEachRemaining(allCar::add);
