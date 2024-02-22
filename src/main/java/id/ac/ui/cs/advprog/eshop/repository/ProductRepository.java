@@ -6,7 +6,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.UUID;
 @Repository
-public class ProductRepository {
+public class ProductRepository implements IProductRepository{
     private List<Product> productData = new ArrayList<>();
     public Product create(Product product){
         if(product.getProductId() == null){
