@@ -6,6 +6,42 @@ NPM: 2206081465
 
 Link deployment: https://advancebanget-isacitraorg.koyeb.app
 
+WEEK03 (MODULE 3)
+
+1. Saya mengaplikasikan prinsip SOLID, yang terdiri atas:
+
+- Single Responsibility Principle: Setiap kelas punya satu tugas
+
+- Open/Closed Principle: Setiap kelas terbuka untuk di-extends tetapi hindari modifikasi pada kode internal kelas tersebut
+
+- Liskov Substitution Principle: Setiap subclass harus bisa menggantikan superclass, jika tidak maka jangan dijadikan subclass
+
+- Interface Segregation Principle: Client tidak boleh dipaksa mengimplementasi semua member dari interface, oleh karena itu client perlu interface paling minimal atau dengan kata lain, interface harus dibuat modular.
+
+- Dependency Inversion Principle: Hubungan komposisi dan ketergantungan antara high level class dengan low level class harus didasarkan pada abstraksi.
+
+2. 
+- SRP: Memberikan setiap kelas tugas yang jelas dan menambah keterbacaan. Misalnya CarController mengatur controller untuk route yang dimulai dengan '/car', sementara ProductController mengatur controller untuk route yang dimulai dengan '/product'
+
+- OCP: Mendorong desain modular. Misalnya saya membuat interface ICarRepository untuk diimplementasikan oleh kelas CarRepository dapat membuat kelas terebut lebih modular karena bergantung pada kontrak (contract-based). Sehingga ketika  kita ingin menambahkan fungsionalitas tambahan pada CarRepository, kita bisa menambahkan implementasi dari interface lain. Dengan bergantung pada kontrak atau abstraksi, pengembangan fungsionalitas pada kelas menjadi lebih mudah dikelola.
+
+- ISP: Kode Lebih fleksibel. Misalnya interface CarService dipecah menjadi interface-interface fungsionalitas kecil seperti CarModificationService, CarCreationService, CarDeletionService, CarRetrievalService sehingga membuat kelas CarServiceImpl atau lainnya dapat lebih fleksibel untuk ingin mengimplementasikan hanya fungsionalitas-fungsionalitas yang sesuai dengan kebutuhan kelas tersebut.
+
+- IDP: Pengurangan ketergantungan langsung. Misalnya pada high level module yaitu CarController, kita memiliki komposisi salah satunya carservice sebagai low level module. CarController tidak boleh bergantung pada implementasi langsung dari carservice, akan tetapi bergantung pada interface-nya itu sendiri. Hal ini  Ini mengurangi ketergantungan langsung dan membuat desain lebih fleksibel.
+
+- LSP: Memastikan inheritance yang tepat. Misalnya CarController tidak seharusnya menjadi subclass dari ProductController. Hal tersebut karena perbedaan job dari CarController dan ProductController. Selain itu, CarController tentu saja tidak bisa mengerjakan job dari ProductController sehingga mempengaruhi kebenaran program menjadi tidak tepat.
+
+3.
+- Tanpa menerapkan ISP, interface cenderung menjadi terlalu besar dan terlalu bergantung pada banyak kelas-kelas yang tidak memerlukan semua fungsionalitas yang didefinisikan dalam interface tersebut. Sebagai contoh, jika kita memiliki interface besar seperti CarService yang mencakup semua operasi terkait mobil, kelas-kelas yang hanya memerlukan beberapa operasi tertentu mungkin akan terpaksa mengimplementasikan semua operasi yang ada dalam interface tersebut. Hal ini menghasilkan kelas-kelas yang tidak terkait memiliki ketergantungan yang tidak perlu dan mengakibatkan kode yang tidak efisien dan sulit dipelihara.
+
+- Tanpa menerapkan LSP, pewarisan kelas tidak selalu dapat digunakan secara serupa, yang dapat mengakibatkan kegagalan dalam memenuhi kontrak atau ekspektasi yang diberikan oleh kelas induk. Sebagai contoh, jika CarController adalah sub-kelas dari ProductController, kita akan menemukan bahwa CarController tidak dapat menggantikan ProductController secara sempurna karena tanggung jawab dan perilaku kelas tersebut berbeda. Hal ini dapat menghasilkan sistem yang tidak konsisten dan tidak stabil.
+
+- Tanpa menerapkan DIP, kelas yang lebih tinggi secara langsung terikat pada detail implementasi kelas yang lebih rendah, bukan pada abstraksi atau kontrak yang lebih umum. Sebagai contoh, jika kelas CarController bergantung langsung pada implementasi konkret CarRepository daripada pada antarmuka ICarRepository, itu akan melanggar DIP. Hal ini menyebabkan kelas yang lebih tinggi menjadi kurang fleksibel, sulit diuji, dan sulit dipelihara karena ketergantungan langsung pada detail implementasi yang spesifik. Contoh nyatanya adalah hal tersebut membuat kelas CarController hanya bisa bekerja dengan CarRepository. Padahal bisa jadi kita memiliki alternatif implementasi ICarRepository berdasarkan real case yang ada.
+
+- Tanpa menerapkan SRP, misalnya, CarController tidak hanya mengatur rute untuk endpoint yang dimulai dengan '/car', tetapi juga berusaha untuk mengatur rute untuk berbagai endpoint lainnya dalam aplikasi. Hal ini berarti CarController menjadi terlalu terfokus pada tugas-tugas yang tidak terkait, seperti mengelola endpoint untuk mobil, produk, dll., yang seharusnya dilakukan oleh kelas-kelas kontroler yang berbeda. Akibatnya, kode dalam CarController menjadi rumit dan sulit dipelihara karena harus menangani banyak tanggung jawab yang berbeda. Selain itu, jika terjadi perubahan pada salah satu tanggung jawab, seperti penambahan endpoint baru untuk entitas lain, maka semua perubahan harus dilakukan dalam satu kelas, menyebabkan risiko kesalahan dan mengganggu keseluruhan sistem.
+
+- Tanpa menerapkan OCP, yang dinyatakan dalam contoh tentangketiadaan dari ICarRepository, sistem tidak didesain untuk mendorong desain modular. Ini berarti bahwa ketika Anda ingin menambahkan fungsionalitas tambahan pada CarRepository, kita mungkin cenderung untuk mengubah langsung implementasi yang sudah ada tanpa memperhatikan struktur modular yang baik. Sebagai contoh, kita mungkin akan menambahkan metode baru atau memodifikasi metode yang sudah ada dalam kelas CarRepository tanpa mempertimbangkan pembuatan interface atau kontrak baru untuk menangani fungsionalitas tambahan tersebut. Akibatnya, pengembangan fungsionalitas tambahan pada CarRepository menjadi kurang terstruktur dan sulit dikelola. Ketergantungan yang erat pada implementasi konkret juga membuat perluasan sistem menjadi lebih sulit, karena perubahan yang dilakukan dalam implementasi mungkin memengaruhi bagian-bagian lain dari sistem yang bergantung pada CarRepository. Ini mengakibatkan sistem menjadi lebih rentan terhadap perubahan, kurang fleksibel, dan sulit dipelihara dalam jangka panjang.
+
 WEEK02 (MODULE 2)
 
 1. Code Quality Issue
