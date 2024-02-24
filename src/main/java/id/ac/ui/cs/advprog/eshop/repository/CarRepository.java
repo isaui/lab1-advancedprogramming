@@ -7,7 +7,7 @@ import id.ac.ui.cs.advprog.eshop.model.Car;
 import java.util.Iterator;
 
 @Repository
-public class CarRepository {
+public class CarRepository implements ICarRepository {
     static int id = 0;
     private List<Car> carData = new ArrayList<>();
 
