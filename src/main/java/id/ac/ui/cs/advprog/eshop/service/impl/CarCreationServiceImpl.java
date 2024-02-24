@@ -1,10 +1,11 @@
-package id.ac.ui.cs.advprog.eshop.service;
+package id.ac.ui.cs.advprog.eshop.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import id.ac.ui.cs.advprog.eshop.model.Car;
 import id.ac.ui.cs.advprog.eshop.repository.ICarRepository;
+import id.ac.ui.cs.advprog.eshop.service.CarCreationService;
 
 @Service
 class CarCreationServiceImpl implements CarCreationService {

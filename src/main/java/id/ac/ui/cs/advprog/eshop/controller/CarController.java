@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
 @RequestMapping("/car")
-class CarController extends ProductController{
+class CarController{
 
     @Autowired CarCreationService carCreationService;
     @Autowired CarDeletionService carDeletionService;

@@ -1,4 +1,4 @@
-package id.ac.ui.cs.advprog.eshop.service;
+package id.ac.ui.cs.advprog.eshop.service.impl;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import id.ac.ui.cs.advprog.eshop.model.Product;
 import id.ac.ui.cs.advprog.eshop.repository.IProductRepository;
+import id.ac.ui.cs.advprog.eshop.service.ProductRetrievalService;
 
 @Service
 public class ProductRetrievalServiceImpl implements ProductRetrievalService {
