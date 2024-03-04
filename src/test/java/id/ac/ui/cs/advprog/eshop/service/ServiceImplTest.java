@@ -15,11 +15,21 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import id.ac.ui.cs.advprog.eshop.model.Product;
 import id.ac.ui.cs.advprog.eshop.repository.ProductRepository;
+import id.ac.ui.cs.advprog.eshop.service.impl.ProductCreationServiceImpl;
+import id.ac.ui.cs.advprog.eshop.service.impl.ProductDeletionServiceImpl;
+import id.ac.ui.cs.advprog.eshop.service.impl.ProductModificationServiceImpl;
+import id.ac.ui.cs.advprog.eshop.service.impl.ProductRetrievalServiceImpl;
 
 @ExtendWith(MockitoExtension.class)
 public class ServiceImplTest {
     @InjectMocks
-    ProductServiceImpl productServiceImpl;
+    ProductCreationServiceImpl productCreationServiceImpl;
+    @InjectMocks
+    ProductDeletionServiceImpl productDeletionServiceImpl;
+    @InjectMocks
+    ProductModificationServiceImpl productModificationServiceImpl;
+    @InjectMocks
+    ProductRetrievalServiceImpl productRetrievalServiceImpl;
     @Mock
     ProductRepository productRepository; 
     @BeforeEach
@@ -36,8 +46,8 @@ public class ServiceImplTest {
         when(productRepository.create(any(Product.class))).thenReturn(product);
         when(productRepository.findById(product.getProductId())).thenReturn(product);
         
-        productServiceImpl.create(product);
-        Product savedProduct = productServiceImpl.findById(product.getProductId());
+        productCreationServiceImpl.create(product);
+        Product savedProduct = productRetrievalServiceImpl.findById(product.getProductId());
         assertEquals(product.getProductId(), savedProduct.getProductId());
         assertEquals(product.getProductName(), savedProduct.getProductName());
         assertEquals(product.getProductQuantity(), savedProduct.getProductQuantity());
@@ -61,7 +71,7 @@ public class ServiceImplTest {
         when(productRepository.findAll()).thenReturn(productList.iterator());
 
         // Act
-        List<Product> foundProducts = productServiceImpl.findAll();
+        List<Product> foundProducts = productRetrievalServiceImpl.findAll();
 
         // Assert
         assertEquals(2, foundProducts.size());
@@ -82,8 +92,8 @@ public class ServiceImplTest {
         productToUpdate.setProductName("Product Name");
         productToUpdate.setProductQuantity(200);
         when(productRepository.create(any(Product.class))).thenReturn(productToUpdate);
-        productServiceImpl.create(productToUpdate);
-        productServiceImpl.update(productId, productToUpdate);
+        productCreationServiceImpl.create(productToUpdate);
+        productModificationServiceImpl.update(productId, productToUpdate);
         verify(productRepository).update(eq(productId), eq(productToUpdate));
     }
 
@@ -93,7 +103,7 @@ public class ServiceImplTest {
         String productId = "eb558e9f-1c39-460e-8860-71af6af63bd6";
 
         // Act
-        productServiceImpl.deleteProductById(productId);
+        productDeletionServiceImpl.deleteProductById(productId);
 
         // Assert
         verify(productRepository, times(1)).delete(productId);

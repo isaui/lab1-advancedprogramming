@@ -10,7 +10,10 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.server.LocalServerPort;
 import id.ac.ui.cs.advprog.eshop.model.Product;
-import id.ac.ui.cs.advprog.eshop.service.ProductService;
+import id.ac.ui.cs.advprog.eshop.service.ProductCreationService;
+import id.ac.ui.cs.advprog.eshop.service.ProductDeletionService;
+import id.ac.ui.cs.advprog.eshop.service.ProductModificationService;
+import id.ac.ui.cs.advprog.eshop.service.ProductRetrievalService;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -28,7 +31,13 @@ public class CreateProductFunctionalTest {
     private String url;
     private String path = "/product/create";
     @Autowired
-    private ProductService service;
+    private ProductCreationService productCreationService;
+    @Autowired
+    private ProductRetrievalService productRetrievalService;
+    @Autowired
+    private ProductDeletionService productDeletionService;
+    @Autowired
+    private ProductModificationService productModificationService;
     @BeforeEach
     void setupTest(){
         url = String.format("%s:%d%s", testBaseUrl, serverPort,path);
@@ -52,7 +61,7 @@ void submitForm_createProduct_isSuccessful(ChromeDriver driver) throws Exception
     driver.findElement(By.id("nameInput")).sendKeys("New Product");
     driver.findElement(By.id("quantityInput")).sendKeys("10");
     driver.findElement(By.tagName("button")).click();
-    List<Product> products = service.findAll();
+    List<Product> products = productRetrievalService.findAll();
     boolean isProductCreated = false;
     for (Product product : products) {
         if (product.getProductName().equals("New Product")) {
