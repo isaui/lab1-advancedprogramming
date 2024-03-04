@@ -12,32 +12,10 @@ import id.ac.ui.cs.advprog.eshop.model.Order;
 public class OrderRepository {
     private List<Order> orderData = new ArrayList<>();
 
-    public Order save(Order order){
-        boolean isUpdate = false;
-        for(int i = 0; i< orderData.size(); i++){
-            Order currentOrder = orderData.get(i);
-            if(currentOrder.getId().equals(order.getId())){
-                orderData.add(i, order);
-                isUpdate = true;
-            }
-        }
-        if(!isUpdate){
-            orderData.add(order);
-        }
-        return order;
-    }
+    public Order save(Order order){return null;}
 
-    public Order findById(String id){
-        for (Order order : orderData) {
-            if(order.getId().equals(id)){
-                return order;
-            }
-        }
-        return null;
-    }
+    public Order findById(String id){return null;}
 
-    public List<Order> findAllByAuthor(String author){
-        return orderData.stream().filter(order -> order.getAuthor().equals(author)).collect(Collectors.toList());
-    }
+    public List<Order> findAllByAuthor(String author){return null;}
     
 }
