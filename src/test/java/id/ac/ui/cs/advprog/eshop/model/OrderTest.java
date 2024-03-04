@@ -8,7 +8,9 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import java.util.ArrayList;
 
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;;
+import org.junit.jupiter.api.Test;
+
+import id.ac.ui.cs.advprog.eshop.enums.OrderStatus;;
 
 public class OrderTest {
     private List<Product> products;
@@ -51,7 +53,7 @@ public class OrderTest {
 
     @Test
     void testCreateOrderSuccessProduct(){
-        Order order = new Order("13652556-012a-4c07-b546-54eb1396d79b", this.products, 1708560000L, "Safira Sudrajat", "SUCCESS");
+        Order order = new Order("13652556-012a-4c07-b546-54eb1396d79b", this.products, 1708560000L, "Safira Sudrajat", OrderStatus.SUCCESS.getValue());
         assertEquals("SUCCESS", order.getStatus());
     }
 
