@@ -12,22 +12,22 @@ public class OrderServiceImpl implements OrderService{
 
     @Override
     public Order createOrder(Order order) {
-        throw new UnsupportedOperationException("Unimplemented method 'createOrder'");
+        return null;
     }
 
     @Override
     public Order updateStatus(String orderId, String status) {
-        throw new UnsupportedOperationException("Unimplemented method 'updateStatus'");
+        return null;
     }
 
     @Override
     public Order findById(String orderId) {
-        throw new UnsupportedOperationException("Unimplemented method 'findById'");
+        return null;
     }
 
     @Override
     public List<Order> findAllByAuthor(String author) {
-        throw new UnsupportedOperationException("Unimplemented method 'findAllByAuthor'");
+        return null;
     }
     
 }
