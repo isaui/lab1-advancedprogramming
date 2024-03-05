@@ -9,15 +9,20 @@ import java.util.List;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+
+
 import id.ac.ui.cs.advprog.eshop.enums.PaymentStatus;
 import id.ac.ui.cs.advprog.eshop.model.Payment;
 
+
+@SpringBootTest
 public class PaymentRepositoryTest {
-    PaymentRepository paymentRepository;
+    @Autowired IPaymentRepository paymentRepository;
     List<Payment> payments;
     @BeforeEach
     void setUp(){
-        paymentRepository = new PaymentRepository();
         payments = new ArrayList<>();
         Payment payment1 = new Payment("ABCDE", "Cash On Delivery", "SUCCESS", new HashMap<>());
         Payment payment2 = new Payment("23456", "Cash On Delivery", "SUCCESS", new HashMap<>());
