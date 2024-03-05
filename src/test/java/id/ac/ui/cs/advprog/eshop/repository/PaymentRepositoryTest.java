@@ -61,7 +61,7 @@ public class PaymentRepositoryTest {
         Payment expectedPayment = payments.get(0);
         Payment findResult = paymentRepository.findById(expectedPayment.getId());
         assertEquals(expectedPayment.getId(), findResult.getId());
-        assertEquals(expectedPayment.getMethod(), findResult.getId());
+        assertEquals(expectedPayment.getMethod(), findResult.getMethod());
         assertEquals(expectedPayment.getStatus(), findResult.getStatus());
         assertEquals(expectedPayment.getPaymentData(), findResult.getPaymentData());
     }
