@@ -12,7 +12,15 @@ public class Payment {
     private Map<String,String> paymentData;
 
     public Payment(String id, String method, String status, Map<String,String> paymentData){
-
+        this.id = id;
+        this.method = method;
+        this.paymentData = paymentData;
+        if (!status.equals("SUCCESS") && !status.equals("REJECTED")) {
+            System.out.println(status);
+            throw new IllegalArgumentException("Status harus SUCCESS atau REJECTED.");
+        } else {
+            this.status = status;
+        }
     }
     public void setId(String id) {
         this.id = id;
@@ -24,7 +32,12 @@ public class Payment {
         this.paymentData = paymentData;
     }
     public void setStatus(String status) {
-        this.status = status;
+        if (!status.equals("SUCCESS") && !status.equals("REJECTED")) {
+            System.out.println(status);
+            throw new IllegalArgumentException("Status harus SUCCESS atau REJECTED.");
+        } else {
+            this.status = status;
+        }
     }
     public String getId() {
         return id;
