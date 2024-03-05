@@ -2,6 +2,8 @@ package id.ac.ui.cs.advprog.eshop.model;
 
 import java.util.Map;
 
+import id.ac.ui.cs.advprog.eshop.enums.PaymentStatus;
+
 
 
 public class Payment {
@@ -15,12 +17,7 @@ public class Payment {
         this.id = id;
         this.method = method;
         this.paymentData = paymentData;
-        if (!status.equals("SUCCESS") && !status.equals("REJECTED")) {
-            System.out.println(status);
-            throw new IllegalArgumentException("Status harus SUCCESS atau REJECTED.");
-        } else {
-            this.status = status;
-        }
+        setStatus(status);
     }
     public void setId(String id) {
         this.id = id;
@@ -32,11 +29,11 @@ public class Payment {
         this.paymentData = paymentData;
     }
     public void setStatus(String status) {
-        if (!status.equals("SUCCESS") && !status.equals("REJECTED")) {
-            System.out.println(status);
-            throw new IllegalArgumentException("Status harus SUCCESS atau REJECTED.");
-        } else {
+        if(PaymentStatus.contains(status)){
             this.status = status;
+        }
+        else{
+            throw new IllegalArgumentException();
         }
     }
     public String getId() {
