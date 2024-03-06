@@ -30,8 +30,7 @@ public class OrderServiceImpl implements OrderService{
         Order order = orderRepository.findById(orderId);
         if(order != null){
             Order newOrder = new Order(order.getId(), order.getProducts(), order.getOrderTime(), status);
-            orderRepository.save(newOrder);
-            return newOrder;
+            return orderRepository.save(newOrder);
         }
         else{
             throw new NoSuchElementException();
