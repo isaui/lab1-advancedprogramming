@@ -4,6 +4,7 @@ import java.util.Map;
 
 import id.ac.ui.cs.advprog.eshop.enums.PaymentMethod;
 import id.ac.ui.cs.advprog.eshop.enums.PaymentStatus;
+import java.lang.IllegalArgumentException;
 
 
 public class Payment {
@@ -14,6 +15,9 @@ public class Payment {
     private Map<String,String> paymentData;
 
     public Payment(String id, String method, Map<String,String> paymentData){
+        if(paymentData == null){
+            throw new IllegalArgumentException();
+        }
         this.id = id;
         this.paymentData = paymentData;
         setMethod(method);
@@ -40,12 +44,24 @@ public class Payment {
         if(this.method.equals(PaymentMethod.PAYMENT_BY_VOUCHER.getValue())){    
             setStatusBasedPaymentByVoucherCodeMethod();
         }
+        else if(this.method.equals(PaymentMethod.COD.getValue())){
+            String address = this.paymentData.get("address");
+            String deliveryFee = this.paymentData.get("deliveryFee");
+            boolean isAddressValid = address != null && !address.trim().isEmpty();
+            boolean isDeliveryFeeValid = deliveryFee != null && !deliveryFee.trim().isEmpty();
+            if(isAddressValid && isDeliveryFeeValid){
+                _setStatus(PaymentStatus.SUCCESS.getValue());
+            }
+            else{
+                _setStatus(PaymentStatus.REJECTED.getValue());
+            }
+        }
     }
 
     private boolean _isPaymentVoucherValid(){
         String code = paymentData.get("voucherCode");
         boolean isCodeExist = code != null;
-        boolean isCodeLength16 = code == null? false: code.length() == 16;
+        boolean isCodeLength16 = code == null? false: code.trim().length() == 16;
         boolean isStartWithEshop = code == null? false:  code.startsWith("ESHOP");
         @SuppressWarnings("null")
         boolean isDigitCount8 = code == null? false: code.chars().mapToObj(c -> (char) c).filter(Character::isDigit).count() == 8;
@@ -74,8 +90,17 @@ public class Payment {
            if(PaymentMethod.PAYMENT_BY_VOUCHER.getValue().equals(this.method)){
             _assignStatusBasedMethod();
            }
-           else{
-            this.status = status;
+           else if(PaymentMethod.COD.getValue().equals(this.method)){
+            String address = this.paymentData.get("address");
+            String deliveryFee = this.paymentData.get("deliveryFee");
+            boolean isAddressValid = address != null && !address.trim().isEmpty();
+            boolean isDeliveryFeeValid = deliveryFee != null && !deliveryFee.trim().isEmpty();
+            if(isAddressValid && isDeliveryFeeValid){
+                _setStatus(PaymentStatus.SUCCESS.getValue());
+            }
+            else{
+                _setStatus(PaymentStatus.REJECTED.getValue());
+            }
            }
         }
         else{
