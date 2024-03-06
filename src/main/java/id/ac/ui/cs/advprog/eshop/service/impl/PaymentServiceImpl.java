@@ -36,7 +36,7 @@ public class PaymentServiceImpl implements PaymentService {
     }
 
     private void validatePayment(Payment payment){
-        if(payment.equals(null)){
+        if(payment == null){
             throw new NoSuchElementException();
         }
     }
