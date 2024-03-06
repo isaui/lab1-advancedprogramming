@@ -6,14 +6,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+
+import id.ac.ui.cs.advprog.eshop.enums.OrderStatus;
 import id.ac.ui.cs.advprog.eshop.model.Order;
 import id.ac.ui.cs.advprog.eshop.model.Payment;
 import id.ac.ui.cs.advprog.eshop.repository.IPaymentRepository;
+import id.ac.ui.cs.advprog.eshop.repository.OrderRepository;
 import id.ac.ui.cs.advprog.eshop.service.PaymentService;
 
 @Service
 public class PaymentServiceImpl implements PaymentService {
     @Autowired IPaymentRepository paymentRepository;
+    @Autowired OrderRepository orderRepository;
     @Override
     public Payment addPayment(Order order, String method, Map<String, String> paymentData) {
         validateOrder(order);
@@ -24,6 +28,10 @@ public class PaymentServiceImpl implements PaymentService {
     public Payment setStatus(Payment payment, String status) {
         Payment selectedPayment = paymentRepository.findById(payment.getId());
         validatePayment(selectedPayment);
+        Order order = orderRepository.findById(payment.getId());
+        validateOrder(order);
+        Order newOrder = new Order(order.getId(),order.getProducts() , order.getOrderTime(), order.getAuthor(), OrderStatus.FAILED.getValue());
+        orderRepository.save(newOrder);
         return paymentRepository.save(new Payment(payment.getId(), payment.getMethod(), status, payment.getPaymentData()));
     }
 

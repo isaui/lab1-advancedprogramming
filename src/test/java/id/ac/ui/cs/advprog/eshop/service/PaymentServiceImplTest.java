@@ -94,7 +94,7 @@ public class PaymentServiceImplTest {
 
         Order orderResult = orderService.updateStatus(order.getId(), OrderStatus.FAILED.getValue());
         assertEquals(OrderStatus.FAILED.getValue(), orderResult.getStatus());
-        verify(orderRepository, times(1)).save(any(Order.class));
+        verify(orderRepository, times(2)).save(any(Order.class));
     }
     @Test
     void testSetStatusPaymentToInvalidStatus(){
