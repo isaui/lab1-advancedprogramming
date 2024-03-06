@@ -96,5 +96,40 @@ public class PaymentTest {
         Payment payment = new Payment("13652556-012a-4c07-b546-54eb1396d79b", PaymentMethod.PAYMENT_BY_VOUCHER.getValue(),paymentData);
         assertEquals(PaymentStatus.SUCCESS.getValue(), payment.getStatus());
     }
- 
+
+    @Test
+    void testCODPaymentInvalid(){
+        Map<String,String> paymentData = new HashMap<>();
+        Payment payment = new Payment("13652556-012a-4c07-b546-54eb1396d79b", PaymentMethod.COD.getValue(),paymentData);
+        assertEquals("13652556-012a-4c07-b546-54eb1396d79b", payment.getId());
+        assertEquals(PaymentMethod.COD.getValue(), payment.getMethod());
+        assertEquals(PaymentStatus.REJECTED.getValue(), payment.getStatus());
+
+        Map<String,String> paymentData2 = new HashMap<>();
+        paymentData2.put("address", "");
+        paymentData2.put("deliveryFee", "");
+        Payment payment2 = new Payment("13652556-012a-4c07-b546-54eb1396d79b", PaymentMethod.COD.getValue(),paymentData2);
+        assertEquals("13652556-012a-4c07-b546-54eb1396d79b", payment2.getId());
+        assertEquals(PaymentMethod.COD.getValue(), payment2.getMethod());
+        assertEquals(PaymentStatus.REJECTED.getValue(), payment2.getStatus());
+    }
+
+    @Test
+    void testCODPaymentValid(){
+        Map<String,String> paymentData = new HashMap<>();
+        paymentData.put("address", "Depok, Jawa Barat, Indonesia");
+        paymentData.put("deliveryFee", "20000");
+        Payment payment = new Payment("13652556-012a-4c07-b546-54eb1396d79b", PaymentMethod.COD.getValue(),paymentData);
+
+        assertEquals("13652556-012a-4c07-b546-54eb1396d79b", payment.getId());
+        assertEquals(PaymentMethod.COD.getValue(), payment.getMethod());
+        assertEquals(PaymentStatus.SUCCESS.getValue(), payment.getStatus());
+    }
+
+    @Test
+    void testNoPaymentData(){
+        Map<String,String> paymentData = null;
+        assertThrows(IllegalArgumentException.class, ()-> new Payment("13652556-012a-4c07-b546-54eb1396d79b", 
+        PaymentMethod.COD.getValue(),paymentData));
+    }
 }

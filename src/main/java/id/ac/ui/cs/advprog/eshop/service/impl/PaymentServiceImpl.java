@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 import id.ac.ui.cs.advprog.eshop.enums.OrderStatus;
+import id.ac.ui.cs.advprog.eshop.enums.PaymentStatus;
 import id.ac.ui.cs.advprog.eshop.model.Order;
 import id.ac.ui.cs.advprog.eshop.model.Payment;
 import id.ac.ui.cs.advprog.eshop.repository.IPaymentRepository;
@@ -26,11 +27,14 @@ public class PaymentServiceImpl implements PaymentService {
 
     @Override
     public Payment setStatus(Payment payment, String status) {
+        if(!PaymentStatus.contains(status)){
+            throw new IllegalArgumentException();
+        }
         Payment selectedPayment = paymentRepository.findById(payment.getId());
         validatePayment(selectedPayment);
         Order order = orderRepository.findById(payment.getId());
         validateOrder(order);
-        Order newOrder = new Order(order.getId(),order.getProducts() , order.getOrderTime(), order.getAuthor(), OrderStatus.FAILED.getValue());
+        Order newOrder = new Order(order.getId(),order.getProducts() , order.getOrderTime(), order.getAuthor(), PaymentStatus.REJECTED.getValue().equals(status)? OrderStatus.FAILED.getValue(): OrderStatus.SUCCESS.getValue());
         orderRepository.save(newOrder);
         return paymentRepository.save(new Payment(payment.getId(), payment.getMethod(), status, payment.getPaymentData()));
     }
