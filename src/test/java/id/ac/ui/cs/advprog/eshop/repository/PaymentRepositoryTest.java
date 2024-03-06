@@ -12,7 +12,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-
+import id.ac.ui.cs.advprog.eshop.enums.PaymentMethod;
 import id.ac.ui.cs.advprog.eshop.enums.PaymentStatus;
 import id.ac.ui.cs.advprog.eshop.model.Payment;
 
@@ -24,11 +24,11 @@ public class PaymentRepositoryTest {
     @BeforeEach
     void setUp(){
         payments = new ArrayList<>();
-        Payment payment1 = new Payment("ABCDE", "Cash On Delivery", "SUCCESS", new HashMap<>());
-        Payment payment2 = new Payment("23456", "Cash On Delivery", "SUCCESS", new HashMap<>());
-        Payment payment3 = new Payment("901234", "Cash On Delivery", "SUCCESS", new HashMap<>());
-        Payment payment4 = new Payment("xyzabc", "Cash On Delivery", "SUCCESS", new HashMap<>());
-        Payment payment5 = new Payment("defghij", "Cash On Delivery", "SUCCESS", new HashMap<>());
+        Payment payment1 = new Payment("ABCDE", PaymentMethod.COD.getValue(), PaymentStatus.SUCCESS.getValue(), new HashMap<>());
+        Payment payment2 = new Payment("23456", PaymentMethod.COD.getValue(), PaymentStatus.SUCCESS.getValue(), new HashMap<>());
+        Payment payment3 = new Payment("901234", PaymentMethod.COD.getValue(), PaymentStatus.SUCCESS.getValue(), new HashMap<>());
+        Payment payment4 = new Payment("xyzabc", PaymentMethod.COD.getValue(), PaymentStatus.SUCCESS.getValue(), new HashMap<>());
+        Payment payment5 = new Payment("defghij", PaymentMethod.COD.getValue(), PaymentStatus.SUCCESS.getValue(), new HashMap<>());
         payments.add(payment1);
         payments.add(payment2);
         payments.add(payment3);

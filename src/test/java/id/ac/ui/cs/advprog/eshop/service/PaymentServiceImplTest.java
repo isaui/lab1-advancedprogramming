@@ -19,6 +19,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import java.util.List;
 
 import id.ac.ui.cs.advprog.eshop.enums.OrderStatus;
+import id.ac.ui.cs.advprog.eshop.enums.PaymentMethod;
 import id.ac.ui.cs.advprog.eshop.enums.PaymentStatus;
 import id.ac.ui.cs.advprog.eshop.model.Order;
 import id.ac.ui.cs.advprog.eshop.model.Payment;
@@ -46,8 +47,8 @@ public class PaymentServiceImplTest {
     void setUp(){
         payments = new ArrayList<>();
         orders = new ArrayList<>();
-        Payment payment1 = new Payment("13652556-012a-4c07-b546-54eb1396d79b", "Cash on Delivery", "SUCCESS", new HashMap<>());
-        Payment payment2 = new Payment("7f9e15bb-4b15-42f4-aebc-c3af385fb078", "Payment by Voucher Code", "SUCCESS", new HashMap<>());
+        Payment payment1 = new Payment("13652556-012a-4c07-b546-54eb1396d79b", PaymentMethod.COD.getValue(), PaymentStatus.SUCCESS.getValue(), new HashMap<>());
+        Payment payment2 = new Payment("7f9e15bb-4b15-42f4-aebc-c3af385fb078", PaymentMethod.PAYMENT_BY_VOUCHER.getValue(), PaymentStatus.SUCCESS.getValue(), new HashMap<>());
         payments.add(payment1);
         payments.add(payment2);
         List<Product> products = new ArrayList<>();
