@@ -35,5 +35,31 @@ public class PaymentTest {
         new Payment("13652556-012a-4c07-b546-54eb1396d79b", "Cash on Delivery", "MEOW", new HashMap<>());
         });
     }
+
+    @Test
+    void testVoucherFieldIsNull(){
+        // Voucher code is null
+        Payment paymentWithNullVoucherCode = new Payment("13652556-012a-4c07-b546-54eb1396d79b", "Payment by Voucher Code", new HashMap<>());
+        assertEquals(PaymentStatus.REJECTED.getValue(), paymentWithNullVoucherCode.getStatus());
+    }
+    @Test
+    void testVoucherCodeIsNotValid(){
+       String[] voucherCodeList= {"","A", "ESHOPEFGHIJKLMN541", "EFGHIJKLMN54123A", "ESHOP1234ABC567A"}; 
+       // Empty, <16, M>16, No 8 Numericals character
+       for(String code: voucherCodeList){
+            Map<String,String> paymentData = new HashMap<>();
+            paymentData.put("voucherCode", code);
+            Payment payment= new Payment("13652556-012a-4c07-b546-54eb1396d79d", "Payment by Voucher Code", paymentData);
+            assertEquals(PaymentStatus.REJECTED.getValue(), payment.getStatus());
+       }
+    }
+
+    @Test
+    void testVoucherCodeIsValid(){
+        Map<String,String> paymentData = new HashMap<>();
+        paymentData.put("voucherCode", "ESHOP1234ABC5678");
+        Payment payment = new Payment("13652556-012a-4c07-b546-54eb1396d79b", "Payment by Voucher Code",paymentData);
+        assertEquals(PaymentStatus.SUCCESS.getValue(), payment.getStatus());
+    }
  
 }

@@ -19,6 +19,12 @@ public class Payment {
         this.paymentData = paymentData;
         setStatus(status);
     }
+    public Payment(String id, String method, Map<String,String> paymentData){
+        this.id = id;
+        this.method = method;
+        this.paymentData = paymentData;
+        setStatus("SUCCESS");
+    }
     public void setId(String id) {
         this.id = id;
     }
