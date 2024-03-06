@@ -6,6 +6,30 @@ NPM: 2206081465
 
 Link deployment: https://advancebanget-isacitraorg.koyeb.app
 
+WEEK04 (MODULE 4)
+
+1. TDD Flow sangat bermanfaat untuk continouous development dalam pengembangan software dimana software akan terus berkembang mengikuti permintaan client. TDD Flow memastikan bahwa software tetap memenuhi kualitas meskipun requirement terus berubah.
+2. 
+- Fast
+
+Saya merasa test yang saya buat sudah cepat sehingga dapat berjalan tanpa mengganggu workflow
+
+- Independent
+
+Saya merasa test yang saya buat sudah independent yang mana artinya setiap test tidak bergantung dengan test lain.
+
+- Repeatable
+
+Test yang dibuat hasilnya harus konsisten di setiap pengujian dengan asumsi tidak terjadi perubahan besar terhadap kode yang menyebabkan hasilnya jadi berbeda di test selanjutnya. Saya yakin bahwa test saya repeatable karena saya sudah setup mock yang sama sehingga hasil test pasti konsisten.
+
+- Self Validating
+
+Test harus jelas dalam menguji apakah fitur berjalan dengan baik atau tidak. Saya yakin bahwa test yang saya buat sudah Self Validating. Itu dibuktikan dengan penggunaan method assertEquals, assertNull, dan lain sebagainya.
+
+- Timely
+
+Test harus mencover semua happy dan unhappy paths dan saya sudah membuat test yang menconver semua happy dan unhappy paths.
+
 WEEK03 (MODULE 3)
 
 1. Saya mengaplikasikan prinsip SOLID, yang terdiri atas:
