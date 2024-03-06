@@ -44,7 +44,6 @@ public class PaymentServiceImplTest {
     
     @BeforeEach
     void setUp(){
-        paymentService = new PaymentServiceImpl();
         payments = new ArrayList<>();
         orders = new ArrayList<>();
         Payment payment1 = new Payment("13652556-012a-4c07-b546-54eb1396d79b", "Cash on Delivery", "SUCCESS", new HashMap<>());
@@ -60,12 +59,12 @@ public class PaymentServiceImplTest {
         Order order1 = new Order("13652556-012a-4c07-b546-54eb1396d79b", products, 1708560000L, "Safira Sudrajat");
         orders.add(order1);
         Order order2 = new Order("7f9e15bb-4b15-42f4-aebc-c3af385fb078", products, 1708570000L, "Safira Sudrajat");
-        orders.add(order2); 
+        orders.add(order2);
     }
     @Test
     void testAddPaymentWhenOrderIsValidOrder(){
         Payment payment = payments.get(0);
-        doReturn(payment).when(paymentRepository).save(payment);
+        doReturn(payment).when(paymentRepository).save(any(Payment.class));
         Payment result = paymentService.addPayment(orders.get(0), payment.getMethod(), payment.getPaymentData());
         verify(paymentRepository, times(1)).save(any(Payment.class));
         assertEquals(payment.getId(), result.getId());
@@ -73,29 +72,35 @@ public class PaymentServiceImplTest {
     @Test
     void testAddPaymentWhenOrderIsInvalidOrder(){
         Payment payment = payments.get(1);
-        doReturn(payment).when(paymentRepository).save(payment);
         assertThrows(IllegalArgumentException.class, ()-> paymentService.addPayment(null, payment.getMethod(), payment.getPaymentData()));
-        verify(paymentRepository, times(1)).save(any(Payment.class));
     }
     @Test
     void testSetStatusPaymentToValidStatus(){
         Payment payment = payments.get(1);
+        Payment newPayment = new Payment(payment.getId(), payment.getMethod(), PaymentStatus.REJECTED.getValue(), payment.getPaymentData());
+
         Order order = orders.get(1);
-        doReturn(payment).when(paymentRepository).save(payment);
-        doReturn(order).when(orderRepository).save(order);
+        Order newOrder = new Order(order.getId(),order.getProducts() , order.getOrderTime(), order.getAuthor(), OrderStatus.FAILED.getValue());
+
+        doReturn(payment).when(paymentRepository).findById(payment.getId());
+        doReturn(newPayment).when(paymentRepository).save(any(Payment.class));
+
+        doReturn(order).when(orderRepository).findById(order.getId());
+        doReturn(newOrder).when(orderRepository).save(any(Order.class));
+
         Payment result = paymentService.setStatus(payment, PaymentStatus.REJECTED.getValue());
         verify(paymentRepository, times(1)).save(any(Payment.class));
         assertEquals(PaymentStatus.REJECTED.getValue(), result.getStatus());
+
         Order orderResult = orderService.updateStatus(order.getId(), OrderStatus.FAILED.getValue());
-        assertEquals(OrderStatus.FAILED.getValue(), orderResult.getStatus());
+        assertEquals(OrderStatus.FAILED.getValue(), orderResult.getStatus()); // NOT EQUAL WHY
         verify(orderRepository, times(1)).save(any(Order.class));
     }
     @Test
     void testSetStatusPaymentToInvalidStatus(){
         Payment payment = payments.get(1);
-        doReturn(payment).when(paymentRepository).save(payment);
+        doReturn(payment).when(paymentRepository).findById(payment.getId());
         assertThrows(java.lang.IllegalArgumentException.class, ()-> paymentService.setStatus(payment, "MEOW"));
-        verify(paymentRepository, times(1)).save(any(Payment.class));
     }
     @Test
     void testGetPaymentNotFound(){
