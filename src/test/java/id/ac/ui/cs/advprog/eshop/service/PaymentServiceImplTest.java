@@ -100,7 +100,6 @@ public class PaymentServiceImplTest {
     @Test
     void testSetStatusPaymentToInvalidStatus(){
         Payment payment = payments.get(1);
-        doReturn(payment).when(paymentRepository).findById(payment.getId());
         assertThrows(java.lang.IllegalArgumentException.class, ()-> paymentService.setStatus(payment, "MEOW"));
     }
     @Test

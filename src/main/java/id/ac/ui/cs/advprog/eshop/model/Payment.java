@@ -42,21 +42,30 @@ public class Payment {
 
     private void _assignStatusBasedMethod(){
         if(this.method.equals(PaymentMethod.PAYMENT_BY_VOUCHER.getValue())){    
-            setStatusBasedPaymentByVoucherCodeMethod();
+            _setStatusBasedPaymentByVoucherCodeMethod();
         }
         else if(this.method.equals(PaymentMethod.COD.getValue())){
-            String address = this.paymentData.get("address");
-            String deliveryFee = this.paymentData.get("deliveryFee");
-            boolean isAddressValid = address != null && !address.trim().isEmpty();
-            boolean isDeliveryFeeValid = deliveryFee != null && !deliveryFee.trim().isEmpty();
-            if(isAddressValid && isDeliveryFeeValid){
-                _setStatus(PaymentStatus.SUCCESS.getValue());
-            }
-            else{
-                _setStatus(PaymentStatus.REJECTED.getValue());
-            }
+            _setStatusBasedPaymentCOD();
         }
     }
+
+    private boolean _isPaymentCODValid(){
+        String address = this.paymentData.get("address");
+        String deliveryFee = this.paymentData.get("deliveryFee");
+        boolean isAddressValid = address != null && !address.trim().isEmpty();
+        boolean isDeliveryFeeValid = deliveryFee != null && !deliveryFee.trim().isEmpty();
+        return isAddressValid && isDeliveryFeeValid;
+    }
+
+    private void _setStatusBasedPaymentCOD(){
+        if(_isPaymentCODValid()){
+            _setStatus(PaymentStatus.SUCCESS.getValue());
+        }
+        else{
+            _setStatus(PaymentStatus.REJECTED.getValue());
+        }
+    }
+
 
     private boolean _isPaymentVoucherValid(){
         String code = paymentData.get("voucherCode");
@@ -68,7 +77,7 @@ public class Payment {
         return isCodeExist && isCodeLength16 && isStartWithEshop && isDigitCount8;
     }
 
-    private void setStatusBasedPaymentByVoucherCodeMethod(){
+    private void _setStatusBasedPaymentByVoucherCodeMethod(){
         if(_isPaymentVoucherValid()){
             _setStatus(PaymentStatus.SUCCESS.getValue());
         }
@@ -87,20 +96,11 @@ public class Payment {
     
     public void setStatus(String status) {
         if(PaymentStatus.contains(status)){
-           if(PaymentMethod.PAYMENT_BY_VOUCHER.getValue().equals(this.method)){
+           if(PaymentMethod.PAYMENT_BY_VOUCHER.getValue().equals(this.method) || PaymentMethod.COD.getValue().equals(this.method)){
             _assignStatusBasedMethod();
            }
-           else if(PaymentMethod.COD.getValue().equals(this.method)){
-            String address = this.paymentData.get("address");
-            String deliveryFee = this.paymentData.get("deliveryFee");
-            boolean isAddressValid = address != null && !address.trim().isEmpty();
-            boolean isDeliveryFeeValid = deliveryFee != null && !deliveryFee.trim().isEmpty();
-            if(isAddressValid && isDeliveryFeeValid){
-                _setStatus(PaymentStatus.SUCCESS.getValue());
-            }
-            else{
-                _setStatus(PaymentStatus.REJECTED.getValue());
-            }
+           else{
+            throw new IllegalArgumentException("Bukan bagian saya. Saya ganjil");
            }
         }
         else{
