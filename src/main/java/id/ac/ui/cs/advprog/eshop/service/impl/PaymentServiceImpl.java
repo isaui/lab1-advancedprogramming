@@ -16,22 +16,27 @@ public class PaymentServiceImpl implements PaymentService {
     @Autowired IPaymentRepository paymentRepository;
     @Override
     public Payment addPayment(Order order, String method, Map<String, String> paymentData) {
-        if(order == null){
-            throw new IllegalArgumentException();
-        }
+        validateOrder(order);
         return paymentRepository.save(new Payment(order.getId(), method, "SUCCESS", paymentData));
     }
 
     @Override
     public Payment setStatus(Payment payment, String status) {
         Payment selectedPayment = paymentRepository.findById(payment.getId());
-        if(selectedPayment!= null){
-            return paymentRepository.save(new Payment(payment.getId(), payment.getMethod(), status, payment.getPaymentData()));
-        }
-        else{
+        validatePayment(selectedPayment);
+        return paymentRepository.save(new Payment(payment.getId(), payment.getMethod(), status, payment.getPaymentData()));
+    }
+
+    private void validatePayment(Payment payment){
+        if(payment.equals(null)){
             throw new NoSuchElementException();
         }
-        
+    }
+
+    private void validateOrder(Order order) {
+        if (order == null) {
+            throw new IllegalArgumentException("Order cannot be null.");
+        }
     }
 
     @Override

@@ -93,7 +93,7 @@ public class PaymentServiceImplTest {
         assertEquals(PaymentStatus.REJECTED.getValue(), result.getStatus());
 
         Order orderResult = orderService.updateStatus(order.getId(), OrderStatus.FAILED.getValue());
-        assertEquals(OrderStatus.FAILED.getValue(), orderResult.getStatus()); // NOT EQUAL WHY
+        assertEquals(OrderStatus.FAILED.getValue(), orderResult.getStatus());
         verify(orderRepository, times(1)).save(any(Order.class));
     }
     @Test
